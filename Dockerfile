@@ -2,15 +2,15 @@ FROM ubuntu:18.04
 
 # Make sure the package repository is up to date.
 RUN yum update -y && \
-    yum install -qy git && \
+    yum install -y git && \
 # Install a basic SSH server
-    yum install -qy openssh-server && \
+    yum install -y openssh-server && \
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
     mkdir -p /var/run/sshd && \
 # Install JDK 11
-    yum install -qy java-11-openjdk && \
+    yum install -y java-11-openjdk && \
 # Install maven
-    yum install -qy maven && \
+    yum install -y maven && \
 # Add user jenkins to the image
     adduser --quiet jenkins && \
 # Set password for the jenkins user (you may want to alter this).
