@@ -12,7 +12,7 @@ RUN yum update -y && \
 # Install maven
     yum install -y maven && \
 # Add user jenkins to the image
-    adduser --quiet jenkins && \
+    useradd jenkins && \
 # Set password for the jenkins user (you may want to alter this).
     echo "jenkins:password" | chpasswd && \
     mkdir /home/jenkins/.m2
