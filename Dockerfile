@@ -1,20 +1,22 @@
-FROM redhat/ubi9
+FROM ubuntu:18.04
 
 # Make sure the package repository is up to date.
-RUN yum update -y && \
-    yum install -y git && \
+RUN apt-get update && \
+    apt-get install -qy git && \
 # Install a basic SSH server
-    yum install -y openssh-server && \
+    apt-get install -qy openssh-server && \
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
     mkdir -p /var/run/sshd && \
 # Install JDK 11
-    yum install -y java-11-openjdk && \
+    apt-get install -qy default-jdk && \
 # Install maven
-    yum install -y maven && \
+    apt-get install -qy maven && \
+# Cleanup old packages
+    apt-get -qy autoremove && \
 # Add user jenkins to the image
-    useradd jenkins && \
+    adduser --quiet jenkins && \
 # Set password for the jenkins user (you may want to alter this).
-    echo "jenkins:password" | chpasswd && \
+    echo "jenkins:31278600aA@" | chpasswd && \
     mkdir /home/jenkins/.m2
 
 # Copy authorized keys
